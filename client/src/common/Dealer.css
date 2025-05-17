@@ -1,0 +1,104 @@
+/* Dealer.css - simple cartoon dealer with animated left arm for dealing */
+.dealer-figure {
+  position: relative;
+  width: 90px;
+  height: 120px;
+  margin: 0 auto;
+  z-index: 3;
+}
+.dealer-body {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dealer-head {
+  width: 38px;
+  height: 38px;
+  background: #fbe9b7;
+  border-radius: 50%;
+  border: 2px solid #bfa76a;
+  margin-bottom: 2px;
+  z-index: 2;
+}
+.dealer-torso {
+  width: 30px;
+  height: 48px;
+  background: #1565c0;
+  border-radius: 12px 12px 18px 18px;
+  margin: 0 auto;
+  z-index: 1;
+  border: 2px solid #0d47a1;
+}
+.dealer-arm-left, .dealer-arm-right {
+  position: absolute;
+  top: 38px;
+  width: 16px;
+  height: 44px;
+  background: #fbe9b7;
+  border-radius: 12px;
+  z-index: 2;
+  border: 2px solid #bfa76a;
+}
+.dealer-arm-left {
+  left: -12px;
+  transform: rotate(18deg);
+  transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+}
+.dealer-arm-right {
+  right: -12px;
+  transform: rotate(-18deg);
+}
+.dealer-arm-deal .dealer-arm-left {
+  transform: rotate(-45deg) translateY(18px) translateX(-10px);
+}
+.dealer-arm-return .dealer-arm-left {
+  transform: rotate(18deg);
+}
+.dealer-children {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+}
+.chips-tray {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  gap: 4px;
+  position: relative;
+  z-index: 2;
+}
+.chip {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  margin: 0 1px;
+}
+.chip-red { background: #d32f2f; }
+.chip-green { background: #388e3c; }
+.chip-black { background: #222; }
+.chip-blue { background: #1976d2; }
+.tray {
+  width: 60px;
+  height: 10px;
+  background: #bfa76a;
+  border-radius: 6px 6px 12px 12px;
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12) inset;
+  z-index: 1;
+}

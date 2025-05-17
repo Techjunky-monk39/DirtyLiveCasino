@@ -1,0 +1,267 @@
+/* PokerTableSession.css - Poker table with green felt and wood grain edges, card dealing animation */
+.poker-table-session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+.poker-table-visual {
+  position: relative;
+  width: 700px;
+  height: 380px;
+  margin-bottom: 2rem;
+  background: #2e7d32;
+  border-radius: 180px/100px;
+  box-shadow: 0 0 32px 8px #1b5e20 inset, 0 0 24px 6px #5a3a1b;
+  border: 16px solid #8b5c2a;
+  overflow: visible;
+}
+.wood-edge {
+  display: none;
+}
+.felt {
+  position: absolute;
+  top: 24px; left: 24px; right: 24px; bottom: 24px;
+  border-radius: 160px/90px;
+  background: radial-gradient(ellipse at 50% 40%, #388e3c 70%, #256029 100%);
+  box-shadow: 0 0 32px 8px #256029 inset;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.poker-table-visual::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 180px/100px;
+  border: 10px solid #a0522d;
+  pointer-events: none;
+  z-index: 3;
+}
+.poker-table-visual::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  height: 40px;
+  background: #222;
+  border-radius: 30px/16px;
+  transform: translate(-50%, -50%);
+  opacity: 0.18;
+  z-index: 2;
+}
+.player-seat {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.seat-1 { left: 80px; bottom: 40px; }
+.seat-2 { left: 320px; bottom: 10px; }
+.seat-3 { right: 80px; bottom: 40px; }
+.seat-4 { right: 80px; top: 40px; }
+.seat-5 { left: 80px; top: 40px; }
+.card {
+  width: 54px;
+  height: 74px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  margin-bottom: 6px;
+  transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  border: 2px solid #222;
+}
+.card-back {
+  background: repeating-linear-gradient(135deg, #1565c0 0 8px, #fff 8px 16px);
+  border: 2px solid #222;
+}
+.card.dealing {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%) scale(1.2);
+  z-index: 10;
+  animation: dealCard 0.4s cubic-bezier(0.77,0,0.175,1);
+}
+@keyframes dealCard {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(1.2); }
+  100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+}
+.card-animate {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 20;
+  transform: translate(-50%, 0) scale(1.1);
+  animation: card-slide-to-player 0.7s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+@keyframes card-slide-to-player {
+  0% { left: 50%; top: 0; }
+  100% { left: 18%; top: 70%; }
+}
+.card-flip {
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+.card-flip.flipped {
+  background: #fff;
+  color: #222;
+  border: 2px solid #222;
+  transform: rotateY(180deg);
+}
+.card-flip.flipped::after {
+  content: attr(data-face);
+  display: block;
+  color: #222;
+  font-size: 1.2rem;
+  text-align: center;
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: #fff;
+  border-radius: 8px;
+}
+.player-label {
+  color: #fff;
+  font-size: 1rem;
+  margin-top: 2px;
+  text-shadow: 0 1px 4px #222;
+}
+.dealer-center {
+  position: absolute;
+  left: 50%;
+  top: -90px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+.dealer-label {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 2px;
+  text-shadow: 0 1px 4px #222;
+  font-weight: bold;
+}
+.deal-btn {
+  margin-top: 10px;
+  background: #fffbe6;
+  color: #222;
+  border: 2px solid #388e3c;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+  position: relative;
+}
+.deal-btn:hover {
+  background: #e6ffe6;
+  box-shadow: 0 4px 16px rgba(56,142,60,0.18);
+}
+.deal-btn span {
+  margin-right: 4px;
+}
+.bet-controls {
+  margin: 1.5rem 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.bet-controls select, .bet-controls button {
+  font-size: 1.1rem;
+  padding: 0.3rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #388e3c;
+}
+.bet-controls button {
+  background: #388e3c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.bet-controls button:disabled {
+  background: #bdbdbd;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* Win/Loss Notification Banner */
+.winloss-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  font-size: 2.1rem;
+  font-weight: bold;
+  padding: 1.1rem 2.5rem;
+  border-radius: 1.2rem;
+  background: #fffbe6;
+  color: #1565c0;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  border: 3px solid #7ec850;
+  animation: winloss-pop 0.5s cubic-bezier(0.77,0,0.175,1);
+}
+.winloss-banner.win { color: #2e7d32; border-color: #7ec850; background: #eaffea; }
+.winloss-banner.lose { color: #d32f2f; border-color: #d32f2f; background: #fff0f0; }
+.winloss-banner.tie { color: #888; border-color: #bbb; background: #f8f8f8; }
+@keyframes winloss-pop {
+  0% { transform: translateX(-50%) scale(0.7); opacity: 0; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* Confetti effect */
+.confetti-container {
+  pointer-events: none;
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 0;
+  z-index: 2000;
+}
+.confetti {
+  position: absolute;
+  bottom: 0;
+  width: 14px;
+  height: 24px;
+  border-radius: 4px;
+  opacity: 0.85;
+  animation: confetti-up 1.8s cubic-bezier(0.77,0,0.175,1) forwards;
+}
+.confetti-0 { left: 10vw; background: #7ec850; }
+.confetti-1 { left: 18vw; background: #d32f2f; }
+.confetti-2 { left: 26vw; background: #1565c0; }
+.confetti-3 { left: 34vw; background: #ffd600; }
+.confetti-4 { left: 42vw; background: #388e3c; }
+.confetti-5 { left: 50vw; background: #1976d2; }
+.confetti-0, .confetti-6 { animation-delay: 0.1s; }
+.confetti-1, .confetti-7 { animation-delay: 0.2s; }
+.confetti-2, .confetti-8 { animation-delay: 0.3s; }
+.confetti-3, .confetti-9 { animation-delay: 0.4s; }
+.confetti-4, .confetti-10 { animation-delay: 0.5s; }
+.confetti-5, .confetti-11 { animation-delay: 0.6s; }
+@keyframes confetti-up {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.85; }
+  60% { opacity: 1; }
+  100% { transform: translateY(-70vh) scale(1.2) rotate(360deg); opacity: 0; }
+}

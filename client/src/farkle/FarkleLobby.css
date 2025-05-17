@@ -1,0 +1,47 @@
+/* Farkle Lobby styles */
+.farkle-lobby {
+  padding: 2rem;
+  text-align: center;
+}
+.no-tables {
+  margin: 2rem 0;
+  color: #888;
+}
+.farkle-table-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.farkle-table-card {
+  background: #222;
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  min-width: 180px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+  position: relative;
+}
+.farkle-table-card:hover {
+  transform: scale(1.05);
+  background: #333;
+}
+.table-label {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.table-info {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+.farkle-table-card .back-btn {
+  margin-top: 0.7rem;
+  padding: 0.3rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 0.4rem;
+}
