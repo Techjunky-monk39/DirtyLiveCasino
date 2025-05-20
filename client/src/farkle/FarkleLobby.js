@@ -42,7 +42,7 @@ function FarkleLobby({ onStartTable, onBack, onJoinTable }) {
 
   return (
     <div className="farkle-lobby">
-      <h2>Farkle (10,000) Lobby</h2>
+      <h2>Farkle Lobby</h2>
       <button className="back-btn" onClick={onBack}>Back to Dice Lobby</button>
       <button className="back-btn" style={{marginLeft:'1rem'}} onClick={handleCreateTable}>Create New Table</button>
       {tables.length === 0 ? (

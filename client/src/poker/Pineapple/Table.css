@@ -1,0 +1,66 @@
+/* Poker Table custom styles to match Blackjack Table look */
+.pineapple-table, .texasholdem-table {
+  background: #2e8b57;
+  border-radius: 24px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  margin: 2rem auto;
+  max-width: 650px;
+  box-shadow: 0 4px 24px #0004;
+  color: #111;
+  position: relative;
+}
+.pineapple-table h2, .texasholdem-table h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.card-row {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  justify-content: center;
+}
+.card {
+  display: inline-block;
+  background: #fff;
+  color: #222;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 8px #0002;
+}
+.card.back {
+  background: #444;
+  color: #888;
+}
+.betting-controls, .action-row, .result-stage {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+.rules-section {
+  margin-top: 2rem;
+  background: #333a;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #fff;
+}
+.community-cards {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+.result-message {
+  text-align: center;
+  font-weight: bold;
+  margin: 1rem 0;
+  color: #0a0;
+}
+.back-btn {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}

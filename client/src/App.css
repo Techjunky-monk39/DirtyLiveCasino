@@ -218,3 +218,35 @@ p {
   max-width: 400px;
   text-align: center;
 }
+
+.Header, header, .app-header, .App-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+footer, .Footer, .app-footer, .App-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+main {
+  overflow-y: auto;
+  max-height: calc(100vh - 140px); /* matches your inline style for minHeight */
+}
+
+.main-lobby, .dice-lobby, .poker-lobby, .blackjack-lobby {
+  min-height: calc(100vh - 100px); /* Reduce the subtraction to allow more space above the footer */
+  padding-bottom: 120px; /* Add extra padding to ensure content is visible above the footer */
+}
+
+/* Ensure the score chart or any sidebar is scrollable if it overflows */
+.score-chart, .farkle-score-chart {
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+}

@@ -1,0 +1,33 @@
+/* Green felt style for blackjack table (distinct from poker)
+   Uses a rich green with subtle felt texture and gold accent border */
+.blackjack-table {
+  background: radial-gradient(ellipse at 60% 40%, #228B22 70%, #145214 100%);
+  border-radius: 32px 32px 48px 48px/40px 40px 80px 80px;
+  border: 4px solid #bfa14a;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1.5px 0 #bfa14a inset;
+  padding: 2.5rem 2.5rem 3.5rem 2.5rem;
+  margin: 2rem auto;
+  max-width: 700px;
+  min-height: 420px;
+  position: relative;
+}
+.blackjack-hands {
+  display: flex;
+  justify-content: space-between;
+  margin: 2.5rem 0 1.5rem 0;
+  gap: 3rem;
+}
+.blackjack-message {
+  margin-top: 2.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fffbe6;
+  text-shadow: 0 1px 4px #145214, 0 0px 1px #bfa14a;
+  text-align: center;
+}
+
+/* Optional: style for cards on table */
+.blackjack-table .card {
+  margin: 0 0.2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+}

@@ -167,6 +167,76 @@ app.post('/api/blackjack/shoe/reshuffle', (req, res) => {
   res.json({ message: 'Shoe reshuffled', shoeSize: blackjackShoe.getShoeSize() });
 });
 
+// In-memory Blackjack game state (single session for demo)
+let blackjackState = {
+  player: [],
+  dealer: [],
+  finished: false,
+  message: '',
+};
+
+function getCardValue(card) {
+  if (["J", "Q", "K"].includes(card.rank)) return 10;
+  if (card.rank === "A") return 11;
+  return parseInt(card.rank, 10);
+}
+
+function calculateHandValue(hand) {
+  let value = 0;
+  let aces = 0;
+  for (const card of hand) {
+    if (["J", "Q", "K"].includes(card.rank)) value += 10;
+    else if (card.rank === "A") {
+      value += 11;
+      aces++;
+    } else value += parseInt(card.rank, 10);
+  }
+  while (value > 21 && aces > 0) {
+    value -= 10;
+    aces--;
+  }
+  return value;
+}
+
+// Start a new blackjack game (deal)
+app.post('/api/blackjack/deal', (req, res) => {
+  blackjackState.player = [blackjackShoe.dealCard(), blackjackShoe.dealCard()];
+  blackjackState.dealer = [blackjackShoe.dealCard(), blackjackShoe.dealCard()];
+  blackjackState.finished = false;
+  blackjackState.message = '';
+  res.json({ player: blackjackState.player, dealer: [blackjackState.dealer[0], { rank: '?', suit: '?' }], message: 'Game started!' });
+});
+
+// Player hits
+app.post('/api/blackjack/hit', (req, res) => {
+  if (blackjackState.finished) return res.json({ player: blackjackState.player, message: 'Game over.' });
+  blackjackState.player.push(blackjackShoe.dealCard());
+  const value = calculateHandValue(blackjackState.player);
+  if (value > 21) {
+    blackjackState.finished = true;
+    return res.json({ player: blackjackState.player, message: 'Bust! Dealer wins.', bust: true });
+  }
+  res.json({ player: blackjackState.player, message: 'Hit!' });
+});
+
+// Player stands
+app.post('/api/blackjack/stand', (req, res) => {
+  if (blackjackState.finished) return res.json({ dealer: blackjackState.dealer, message: 'Game over.' });
+  // Dealer reveals and plays
+  let dealerValue = calculateHandValue(blackjackState.dealer);
+  while (dealerValue < 17) {
+    blackjackState.dealer.push(blackjackShoe.dealCard());
+    dealerValue = calculateHandValue(blackjackState.dealer);
+  }
+  const playerValue = calculateHandValue(blackjackState.player);
+  let message = '';
+  if (dealerValue > 21 || playerValue > dealerValue) message = 'Player wins!';
+  else if (dealerValue === playerValue) message = 'Push!';
+  else message = 'Dealer wins!';
+  blackjackState.finished = true;
+  res.json({ dealer: blackjackState.dealer, message });
+});
+
 // Farkle: Roll dice
 app.post('/api/farkle/roll', (req, res) => {
   const result = farkleGame.playerRoll();

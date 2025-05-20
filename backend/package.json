@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"No backend tests yet. Add with mocha or jest.\" && exit 0"
   },
   "dependencies": {
     "cors": "^2.8.5",
