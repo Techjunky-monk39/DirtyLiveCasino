@@ -9,6 +9,7 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 import LoginPlaceholder from './LoginPlaceholder';
 import BlackjackTable from './blackjack/BlackjackTable';
+import PitBossPanel from './admin/PitBossPanel';
 
 function StickyNav({ onMain, onDice, onPoker, onRoulette, onBlackjack }) {
   return (
@@ -65,6 +66,7 @@ function App() {
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState(null);
   const [selectedFarkleTable, setSelectedFarkleTable] = useState(null);
+  const [showPitBoss, setShowPitBoss] = useState(false);
   // #2 setPlayer: Will be used to store the current player's name or ID for multiplayer
   // const [player, setPlayer] = useState(''); // #2 (uncomment and use when ready)
   // #3 resultMessage: Will be used to display game results/messages to the user
@@ -208,11 +210,15 @@ function App() {
         onMain={handleBack}
         onDice={() => { setShowDiceLobby(true); setShowPokerLobby(false); setShowFarkleLobby(false); setShowBlackjackLobby(false); }}
         onPoker={() => { setShowPokerLobby(true); setShowDiceLobby(false); setShowFarkleLobby(false); setShowBlackjackLobby(false); }}
-        onRoulette={() => {}} // Placeholder
+        onRoulette={() => {}}
         onBlackjack={() => { setShowBlackjackLobby(true); setShowPokerLobby(false); setShowDiceLobby(false); setShowFarkleLobby(false); }}
       />
       <Header />
       <main style={{ minHeight: 'calc(100vh - 140px)' }}>
+        <button style={{position:'fixed',bottom:24,right:24,zIndex:2000,padding:'12px 20px',background:'#222',color:'#fff',borderRadius:8,border:'none',fontWeight:'bold',cursor:'pointer'}} onClick={()=>setShowPitBoss(v=>!v)}>
+          {showPitBoss ? 'Close Pit Boss' : 'Pit Boss GPT'}
+        </button>
+        {showPitBoss && <PitBossPanel />}
         {!loggedIn ? (
           <LoginPlaceholder onLogin={() => setLoggedIn(true)} />
         ) : showBlackjackLobby ? (

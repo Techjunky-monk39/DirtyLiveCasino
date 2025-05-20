@@ -4,6 +4,8 @@ const cors = require('cors');
 const { PokerDeck } = require('./poker/pokerEngine');
 const { BlackjackShoe } = require('./blackjack/BlackjackShoe');
 const FarkleGame = require('./farkle/FarkleGame');
+const logger = require('./logger');
+const pitbossAuth = require('./auth');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -254,6 +256,63 @@ app.post('/api/farkle/setAside', (req, res) => {
 app.post('/api/farkle/newGame', (req, res) => {
   farkleGame = new FarkleGame();
   res.json({ success: true });
+});
+
+// --- PIT BOSS GPT ENDPOINTS ---
+const pitbossGPT = require('./PITBOSSAI/Openai/pitbossGPT');
+
+// Apply authentication and logging middleware to all Pit Boss endpoints
+app.use('/api/pitboss', (req, res, next) => {
+  logger.log(`[${req.method}] ${req.originalUrl} - ${JSON.stringify(req.body)}`);
+  next();
+}, pitbossAuth);
+
+// General Q&A endpoint
+app.post('/api/pitboss/ask', async (req, res) => {
+  const { prompt, context } = req.body;
+  if (!prompt) {
+    logger.logError('Prompt required', '/api/pitboss/ask');
+    return res.status(400).json({ error: 'Prompt required' });
+  }
+  try {
+    const answer = await pitbossGPT.askPitBoss(prompt, context);
+    res.json({ answer });
+  } catch (err) {
+    logger.logError(err, '/api/pitboss/ask');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// SQL generation endpoint
+app.post('/api/pitboss/sql', async (req, res) => {
+  const { nlQuery } = req.body;
+  if (!nlQuery) {
+    logger.logError('Natural language query required', '/api/pitboss/sql');
+    return res.status(400).json({ error: 'Natural language query required' });
+  }
+  try {
+    const sql = await pitbossGPT.generateSQL(nlQuery);
+    res.json({ sql });
+  } catch (err) {
+    logger.logError(err, '/api/pitboss/sql');
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Log analysis endpoint
+app.post('/api/pitboss/logs', async (req, res) => {
+  const { logData } = req.body;
+  if (!logData) {
+    logger.logError('Log data required', '/api/pitboss/logs');
+    return res.status(400).json({ error: 'Log data required' });
+  }
+  try {
+    const summary = await pitbossGPT.summarizeLogs(logData);
+    res.json({ summary });
+  } catch (err) {
+    logger.logError(err, '/api/pitboss/logs');
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(PORT, () => {
